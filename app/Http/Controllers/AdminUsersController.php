@@ -3,8 +3,12 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Webpatser\Uuid\Uuid;
 
 use App\Http\Requests;
+use App\Http\Requests\UsersRequest;
+use App\User;
+use App\Role;
 
 class AdminUsersController extends Controller
 {
@@ -15,7 +19,8 @@ class AdminUsersController extends Controller
      */
     public function index()
     {
-        return view('admin.users.index');
+        $users = User::all();
+        return view('admin.users.index', compact('users'));
     }
 
     /**
@@ -25,7 +30,8 @@ class AdminUsersController extends Controller
      */
     public function create()
     {
-        return view('admin.users.create');
+        $roles = Role::pluck('type', 'id')->all();
+        return view('admin.users.create', compact('roles'));
     }
 
     /**
@@ -34,9 +40,26 @@ class AdminUsersController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(UsersRequest $request)
     {
-        
+        // $this->validate($request, [
+        //     'name' => 'bail|required|max:255',
+        //     'email' => 'required|email|max:255|unique:users',
+        //     'password' => 'required|min:6',
+        //     'role_id' => 'required',
+        // ]);
+        $request->merge([
+            'password' => bcrypt($request->password),
+            'user_id'=>Uuid::generate(), 
+        ]);
+        $input = $request->all();
+        if($file = $request->file('image_url')) {
+            $name = $file->getClientOriginalName();
+            $file->move('avatars', $name); // creates images folder in public directory
+            $input['image_url'] = $name;
+        }
+        User::create($input);
+        return redirect('/admin/users');
     }
 
     /**
