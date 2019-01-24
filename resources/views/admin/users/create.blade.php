@@ -7,10 +7,10 @@
 <!-- <input type="file" name="file" id="profile-img"> -->
 
     {!! Form::open(['method'=>'POST', 'action'=>'AdminUsersController@store', 'files'=>true]) !!}
-        <img src="https://picsum.photos/150/150/?random" id="profile-img-tag" width="150px" height="150px" style="border-radius:50%; border:1px solid grey; margin-bottom:10px;" />
+        <img src="/images/avatar_default.svg" id="profile-img-tag" width="150px" height="150px" style="border-radius:50%; border:1px solid grey; margin-bottom:10px;" />
         <div class="form-group" style="width:25%;">
-            {!! Form::label('image_url', 'Avatar:') !!}
-            {!! Form::file('image_url', ['class'=>'form-control', 'id'=>'profile-img']) !!}
+            {!! Form::label('avatar_id', 'Avatar:') !!}
+            {!! Form::file('avatar_id', ['class'=>'form-control', 'id'=>'profile-img']) !!}
         </div>
 
         <div class="form-group {{ $errors->has('name') ? 'has-error' : '' }}">

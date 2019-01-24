@@ -4,10 +4,11 @@
 
     <h1>Users</h1>
 
-    <table class="table">
+    <table class="table table-striped table-hover">
         <thead>
             <tr>
                 <th>Id</th>
+                <th>Avatar</th>
                 <th>Name</th>
                 <th>Email</th>
                 <th>Role</th>
@@ -19,18 +20,31 @@
         <tbody>
             @if($users)
                 @foreach($users as $user)
-                    <tr>
-                        <td>{{ $user->id }}</td>
-                        <td>{{ $user->name }}</td>
-                        <td>{{ $user->email }}</td>
-                        <td>{{ $user->role->type }}</td>
-                        <td>{{ $user->is_active == 1 ? 'Active' : 'Inactive' }}</td>
-                        <td>{{ $user->created_at->diffForHumans() }}</td>
-                        <td>{{ $user->updated_at->diffForHumans() }}</td>
+                    <tr class="clickable-row" style="cursor:pointer;" data-url="{{ route('admin.users.edit', $user->id) }}">
+                        <td style="vertical-align: middle;">{{ $user->id }}</td>
+                        <td>
+                            <img src="{{ $user->photo ? $user->photo->image_url : 'none' }}" height="30px" width="30px" style="border-radius:50%;" />
+                        </td>
+                        <td style="vertical-align: middle;">{{ $user->name }}</td>
+                        <td style="vertical-align: middle;">{{ $user->email }}</td>
+                        <td style="vertical-align: middle;">{{ $user->role->type }}</td>
+                        <td style="vertical-align: middle;">{{ $user->is_active == 1 ? 'Active' : 'Inactive' }}</td>
+                        <td style="vertical-align: middle;">{{ $user->created_at->diffForHumans() }}</td>
+                        <td style="vertical-align: middle;">{{ $user->updated_at->diffForHumans() }}</td>
                     </tr>
                 @endforeach
             @endif
         </tbody>
     </table>
 
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+
+    <script type="text/javascript">
+        jQuery(document).ready(function($) {
+            $(".clickable-row").click(function() {
+                console.log($(this).data("url"));
+                window.location = $(this).data("url");
+            });
+        });
+    </script>
 @stop

@@ -7,8 +7,10 @@ use Webpatser\Uuid\Uuid;
 
 use App\Http\Requests;
 use App\Http\Requests\UsersRequest;
+use App\Http\Requests\UsersEditRequest;
 use App\User;
 use App\Role;
+use App\Photo;
 
 class AdminUsersController extends Controller
 {
@@ -42,23 +44,23 @@ class AdminUsersController extends Controller
      */
     public function store(UsersRequest $request)
     {
-        // $this->validate($request, [
-        //     'name' => 'bail|required|max:255',
-        //     'email' => 'required|email|max:255|unique:users',
-        //     'password' => 'required|min:6',
-        //     'role_id' => 'required',
-        // ]);
+        // validation being done in UsersRequest
         $request->merge([
             'password' => bcrypt($request->password),
             'user_id'=>Uuid::generate(), 
         ]);
-        $input = $request->all();
-        if($file = $request->file('image_url')) {
+        $userInput = $request->all();
+        if($file = $request->file('avatar_id')) {
             $name = $file->getClientOriginalName();
-            $file->move('avatars', $name); // creates images folder in public directory
-            $input['image_url'] = $name;
+            $size = $file->getClientSize();
+            $file->move('images', $name); // creates avatars folder in public directory
+            $photo = Photo::create( ['image_url'=>$name, 'size'=>$size, 'user_id'=>$userInput['user_id'] ]);
+
+            $userInput['avatar_id'] = $photo['id'];
         }
-        User::create($input);
+        // $userInput['password'] = bcrypt($request->password);
+        // $userInput['user_id'] = Uuid::generate();
+        User::create($userInput);
         return redirect('/admin/users');
     }
 
@@ -81,7 +83,10 @@ class AdminUsersController extends Controller
      */
     public function edit($id)
     {
-        return view('admin.users.edit');
+        $user = User::findOrFail($id);
+        $roles = Role::pluck('type', 'id')->all();
+
+        return view('admin.users.edit', compact('user', 'roles'));
     }
 
     /**
@@ -91,9 +96,20 @@ class AdminUsersController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(UsersEditRequest $request, $id)
     {
-        //
+        $user = User::findOrFail($id);
+        $userInput = $request->all();
+        if($file = $request->file('avatar_id')) {
+            $name = $file->getClientOriginalName();
+            $size = $file->getClientSize();
+            $file->move('images', $name); // creates avatars folder in public directory
+            $photo = Photo::create(['image_url'=>$name, 'size'=>$size, 'user_id'=>$user['user_id'] ]);
+
+            $userInput['avatar_id'] = $photo['id'];
+        }
+        $user->update($userInput);
+        return redirect('admin/users');
     }
 
     /**
