@@ -45,18 +45,24 @@
             </div>
 
             <div class="form-group">
-                {!! Form::submit('Create User', ['class'=>'btn btn-primary']) !!}
+                {!! Form::submit('Save Changes', ['class'=>'btn btn-primary']) !!}
+                {!! Form::button('Delete User', ['class'=>'btn btn-danger', 'id'=>'delete-user', 'data-userid'=>$user->id]) !!}
+                <!-- {!! Form::open(['method'=>'DELETE', 'action'=>['AdminUsersController@destroy', $user->id], 'class'=>'pull-right']) !!}
+                        {!! Form::submit('Delete User', ['class'=>'btn btn-danger']) !!}
+                {!! Form::close() !!} -->
             </div>
         </div>
         <div class="col-sm-3">
             <img src="{{ $user->photo->image_url }}" alt="user avatar" id="profile-img-tag" width="150px" height="150px" style="border-radius:50%; border:1px solid grey; margin-bottom:10px;" />
             <!-- <img src="{{ $user->photo->image_url }}" alt="user avatar" id="profile-img-tag" width="150px" height="150px" style="border-radius:50%;" /> -->
             <div class="form-group">
-                {!! Form::label('avatar_id', 'Avatar:') !!}
-                {!! Form::file('avatar_id', ['class'=>'form-control', 'id'=>'profile-img']) !!}
+                {!! Form::label('photo_id', 'Avatar:') !!}
+                {!! Form::file('photo_id', ['class'=>'form-control', 'id'=>'profile-img']) !!}
             </div>
         </div>
     {!! Form::close() !!}
+
+
 
     <!-- @include('includes.form_errors') -->
 
@@ -64,6 +70,7 @@
     <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 
     <script type="text/javascript">
+        // gets and sets image as user selectes it
         function readURL(input) {
             if (input.files && input.files[0]) {
                 var reader = new FileReader();
@@ -74,8 +81,27 @@
                 reader.readAsDataURL(input.files[0]);
             }
         }
-        $("#profile-img").change(function(){
+        $("#profile-img").change(function() {
             readURL(this);
         });
+        // handles DELETE request without form
+        $('#delete-user').click(function(e) {
+            e.preventDefault();
+            var userId = $(this).data('userid')
+            console.log('ID', userId)
+            $.ajax({
+                type: "POST",
+                url: "/admin/users" + "/" + userId,
+                contentType: 'application/json; charset=utf-8',
+                data: JSON.stringify({
+                    "_token": "{{ csrf_token() }}",
+                    "id":userId
+                }),
+                success: function(html){
+                    window.location = '/admin/users';
+                    console.log('deleted user')
+                }
+            });
+        })
     </script>
 @stop

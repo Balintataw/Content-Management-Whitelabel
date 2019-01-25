@@ -2,6 +2,9 @@
 
 @section('content')
 
+    @if(Session::has('deleted_user')) 
+        <p class="bg-danger" style="position:absolute; top:20px;">{{ session('deleted_user') }}</p>
+    @endif
     <h1>Users</h1>
 
     <table class="table table-striped table-hover">
@@ -22,7 +25,7 @@
                 @foreach($users as $user)
                     <tr class="clickable-row" style="cursor:pointer;" data-url="{{ route('admin.users.edit', $user->id) }}">
                         <td style="vertical-align: middle;">{{ $user->id }}</td>
-                        <td>
+                        <td style="vertical-align: middle;">
                             <img src="{{ $user->photo ? $user->photo->image_url : 'none' }}" height="30px" width="30px" style="border-radius:50%;" />
                         </td>
                         <td style="vertical-align: middle;">{{ $user->name }}</td>
@@ -42,7 +45,6 @@
     <script type="text/javascript">
         jQuery(document).ready(function($) {
             $(".clickable-row").click(function() {
-                console.log($(this).data("url"));
                 window.location = $(this).data("url");
             });
         });

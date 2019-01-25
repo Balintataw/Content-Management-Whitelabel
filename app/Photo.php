@@ -9,7 +9,6 @@ class Photo extends Model
     protected $fillable = [
         'image_url',
         'size',
-        'user_id'
     ];
 
     protected $uploads = '/images/';

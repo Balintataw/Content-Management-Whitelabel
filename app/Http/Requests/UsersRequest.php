@@ -31,4 +31,14 @@ class UsersRequest extends Request
             'role_id' => 'required',
         ];
     }
+
+    public function messages()
+    {
+        return [
+            'name.required' => 'Name is required',
+            'email.required'  => 'Email is required',
+            'password.required'  => 'Password is required',
+            'role_id.required'  => 'User role is required',
+        ];
+    }
 }

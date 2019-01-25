@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\Request;
 use App\User;
 
@@ -27,8 +28,8 @@ class UsersEditRequest extends Request
         $user = User::find($this->users);
         return [
             'name' => 'bail|required|max:255',
-            // 'email' => 'bail|required|email|max:255|unique:users',
             'email' => 'required|email|max:255|unique:users,email,' . $user->id,
+            // 'email' => 'required|email|max:255|unique:users,email',
             'role_id' => 'required',
         ];
     }

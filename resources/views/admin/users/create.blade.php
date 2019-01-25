@@ -9,8 +9,8 @@
     {!! Form::open(['method'=>'POST', 'action'=>'AdminUsersController@store', 'files'=>true]) !!}
         <img src="/images/avatar_default.svg" id="profile-img-tag" width="150px" height="150px" style="border-radius:50%; border:1px solid grey; margin-bottom:10px;" />
         <div class="form-group" style="width:25%;">
-            {!! Form::label('avatar_id', 'Avatar:') !!}
-            {!! Form::file('avatar_id', ['class'=>'form-control', 'id'=>'profile-img']) !!}
+            {!! Form::label('photo_id', 'Avatar:') !!}
+            {!! Form::file('photo_id', ['class'=>'form-control', 'id'=>'profile-img']) !!}
         </div>
 
         <div class="form-group {{ $errors->has('name') ? 'has-error' : '' }}">

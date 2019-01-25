@@ -1,3 +1,15 @@
+# requirements
+Project was created with Homestead
+Run:
+composer install 
+composer dump-autoload 
+npm install 
+modify hosts file to alias ip from Homestead.yaml
+configure Homestead.yaml
+rename .env.example to .env
+generate new key with 'php artisan key:generate'
+configure .env for new db
+php artisan migrate
 # Laravel PHP Framework
 
 [![Build Status](https://travis-ci.org/laravel/framework.svg)](https://travis-ci.org/laravel/framework)

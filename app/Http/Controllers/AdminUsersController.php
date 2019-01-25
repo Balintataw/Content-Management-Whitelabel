@@ -8,6 +8,8 @@ use Webpatser\Uuid\Uuid;
 use App\Http\Requests;
 use App\Http\Requests\UsersRequest;
 use App\Http\Requests\UsersEditRequest;
+use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Redirect;
 use App\User;
 use App\Role;
 use App\Photo;
@@ -47,20 +49,19 @@ class AdminUsersController extends Controller
         // validation being done in UsersRequest
         $request->merge([
             'password' => bcrypt($request->password),
-            'user_id'=>Uuid::generate(), 
         ]);
         $userInput = $request->all();
-        if($file = $request->file('avatar_id')) {
+        if($file = $request->file('photo_id')) {
             $name = $file->getClientOriginalName();
             $size = $file->getClientSize();
             $file->move('images', $name); // creates avatars folder in public directory
-            $photo = Photo::create( ['image_url'=>$name, 'size'=>$size, 'user_id'=>$userInput['user_id'] ]);
+            $photo = Photo::create( ['image_url'=>$name, 'size'=>$size] );
 
-            $userInput['avatar_id'] = $photo['id'];
+            $userInput['photo_id'] = $photo['id'];
         }
         // $userInput['password'] = bcrypt($request->password);
-        // $userInput['user_id'] = Uuid::generate();
         User::create($userInput);
+
         return redirect('/admin/users');
     }
 
@@ -98,18 +99,24 @@ class AdminUsersController extends Controller
      */
     public function update(UsersEditRequest $request, $id)
     {
+        if(trim($request->password) == '') {
+            // if we want to allow for password changing from admin users panel
+            $userInput = $request->except('password');
+        } else {
+            $userInput = $request->all();
+            $userInput['password'] = bcrypt($request->password);
+        }
         $user = User::findOrFail($id);
-        $userInput = $request->all();
-        if($file = $request->file('avatar_id')) {
+        if($file = $request->file('photo_id')) {
             $name = $file->getClientOriginalName();
             $size = $file->getClientSize();
             $file->move('images', $name); // creates avatars folder in public directory
-            $photo = Photo::create(['image_url'=>$name, 'size'=>$size, 'user_id'=>$user['user_id'] ]);
+            $photo = Photo::create(['image_url'=>$name, 'size'=>$size ]);
 
-            $userInput['avatar_id'] = $photo['id'];
+            $userInput['photo_id'] = $photo['id'];
         }
         $user->update($userInput);
-        return redirect('admin/users');
+        return redirect('/admin/users');
     }
 
     /**
@@ -120,6 +127,14 @@ class AdminUsersController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $user = User::findOrFail($id);
+        // cheese way to not delete my placeholder avatar image
+        if($user->photo->image_url != '/images/avatar_default.svg') {
+            unlink(public_path() . $user->photo->image_url);
+        }
+        $user->delete();
+        Session::flash('deleted_user', 'User Deleted');
+
+        // return redirect('/admin/users');
     }
 }

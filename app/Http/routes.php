@@ -23,4 +23,12 @@ Route::get('/admin', function() {
     return view('admin.index');
 });
 
-Route::resource('admin/users', 'AdminUsersController');
+
+Route::group(['middleware'=>'admin'], function() {
+    //active admin/superuser only routes
+    Route::resource('admin/users', 'AdminUsersController');
+    Route::resource('admin/posts', 'AdminPostsController');
+    Route::any('admin/posts/{id}', 'AdminPostsController@destroy');
+    Route::any('admin/users/{id}', 'AdminUsersController@destroy');
+});
+

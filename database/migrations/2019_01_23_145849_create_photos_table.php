@@ -16,7 +16,7 @@ class CreatePhotosTable extends Migration
             $table->increments('id');
             $table->string('image_url');
             $table->string('size');
-            $table->string('user_id');
+            // $table->string('user_id');
             $table->timestamps();
         });
     }
@@ -28,6 +28,6 @@ class CreatePhotosTable extends Migration
      */
     public function down()
     {
-        Schema::drop('photos');
+        Schema::dropIfExists('photos');
     }
 }
