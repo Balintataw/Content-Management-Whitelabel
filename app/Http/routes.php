@@ -28,6 +28,8 @@ Route::group(['middleware'=>'admin'], function() {
     //active admin/superuser only routes
     Route::resource('admin/users', 'AdminUsersController');
     Route::resource('admin/posts', 'AdminPostsController');
+    Route::resource('admin/categories', 'AdminCategoriesController');
+    Route::resource('admin/media', 'AdminMediasController');
     Route::any('admin/posts/{id}', 'AdminPostsController@destroy');
     Route::any('admin/users/{id}', 'AdminUsersController@destroy');
 });

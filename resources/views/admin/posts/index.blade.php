@@ -3,7 +3,7 @@
 @section('content')
 
 @if(Session::has('deleted_post')) 
-    <p class="bg-danger" style="position:absolute; top:20px;">{{ session('deleted_post') }}</p>
+    <p class="bg-danger alert alert-success" style="position:absolute; top:20px;">{{ session('deleted_post') }}</p>
 @endif
 
 <h1>Posts Page</h1>
@@ -43,6 +43,8 @@
     <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 
     <script type="text/javascript">
+        $('div.alert').delay(3000).slideUp(300);
+
         jQuery(document).ready(function($) {
             $(".clickable-row").click(function() {
                 window.location = $(this).data("url");

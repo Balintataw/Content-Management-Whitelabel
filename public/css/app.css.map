@@ -1,1 +1,1 @@
-{"version":3,"sources":["app.scss"],"names":[],"mappings":"AAEA;EACI,eAAe,EAClB","file":"app.css","sourcesContent":["// @import \"node_modules/bootstrap-sass/assets/stylesheets/bootstrap\";\n\n#admin-page {\n    padding-top: 0;\n}\n\n"]}
+{"version":3,"sources":["app.scss"],"names":[],"mappings":"AAGA;EACI,eAAe,EAClB","file":"app.css","sourcesContent":["// @import \"node_modules/bootstrap-sass/assets/stylesheets/bootstrap\";\n// run gulp after any modification\n\n#admin-page {\n    padding-top: 0;\n}\n\n"]}
