@@ -28,7 +28,7 @@
     <hr>
 
     <!-- Preview Image -->
-    <img class="img-responsive" src="{{ $post->photo->image_url }}" alt="">
+    <img class="img-responsive" src="{{ $post->photo ? $post->photo->image_url : '' }}" alt="">
 
     <hr>
 
