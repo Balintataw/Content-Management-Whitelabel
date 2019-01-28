@@ -34,7 +34,8 @@
                         <td style="vertical-align: middle;">{{ $post->category ? $post->category->name : 'None' }}</td>
                         <td style="vertical-align: middle;">{{ $post->created_at->diffForHumans() }}</td>
                         <td style="vertical-align: middle;">{{ $post->updated_at->diffForHumans() }}</td>
-                        <td style="vertical-align: middle;"><a href="{{ route('home.post', $post->slug) }}">View Post</a></td>
+                        <!-- <td style="vertical-align: middle;"><a href="{{ route('home.post', $post->slug) }}">View Post</a></td> -->
+                        <td style="vertical-align: middle;"><a href="{{ route('home.post', $post->id) }}">View Post</a></td>
                         <td style="vertical-align: middle;"><a href="{{ route('admin.comments.show', $post->id) }}">View Comments</a></td>
                     </tr>
                 @endforeach

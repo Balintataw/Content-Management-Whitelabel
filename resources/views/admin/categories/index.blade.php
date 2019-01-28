@@ -3,7 +3,7 @@
 @section('content')
 
 @if(Session::has('category_added')) 
-    <p class="bg-danger alert alert-success" style="position:absolute; top:20px;">{{ session('category_added') }}</p>
+    <div class="bg-danger alert alert-success" style="position:absolute; top:60px; right:20px;">{{ session('category_added') }}</div>
 @endif
 
 <h1>Categories Page</h1>

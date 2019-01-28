@@ -3,7 +3,7 @@
 @section('content')
 
     @if(Session::has('deleted_user')) 
-        <p class="bg-danger alert alert-success" style="position:absolute; top:20px;">{{ session('deleted_user') }}</p>
+        <div class="bg-danger alert alert-success" style="position:absolute; top:60px; right:20px;">{{ session('deleted_user') }}</div>
     @endif
     <h1>Users</h1>
 

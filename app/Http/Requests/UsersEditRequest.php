@@ -25,7 +25,7 @@ class UsersEditRequest extends Request
      */
     public function rules()
     {
-        $user = User::find($this->users);
+        $user = User::find($this->user);
         return [
             'name' => 'bail|required|max:255',
             'email' => 'required|email|max:255|unique:users,email,' . $user->id,
