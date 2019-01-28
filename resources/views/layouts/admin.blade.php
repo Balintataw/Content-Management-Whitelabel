@@ -140,11 +140,14 @@
                             <li>
                                 <a href="{{ route('admin.posts.create') }}">Create Post</a>
                             </li>
+                            
+                            <li>
+                                <a href="{{ route('admin.comments.index') }}">All Comments</a>
+                            </li>
 
                         </ul>
                         <!-- /.nav-second-level -->
                     </li>
-
 
                     <li>
                         <a href="#"><i class="fa fa-wrench fa-fw"></i>Categories<span class="fa arrow"></span></a>
@@ -161,7 +164,6 @@
                         <!-- /.nav-second-level -->
                     </li>
 
-
                     <li>
                         <a href="#"><i class="fa fa-wrench fa-fw"></i>Media<span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level">
@@ -176,12 +178,6 @@
                         </ul>
                         <!-- /.nav-second-level -->
                     </li>
-
-
-
-
-
-
 
                     <li>
                         <a href="#"><i class="fa fa-bar-chart-o fa-fw"></i> Charts<span class="fa arrow"></span></a>
@@ -343,7 +339,10 @@
 <!-- /#wrapper -->
 
 <!-- jQuery -->
+<script src="js/jquery.js"></script>
+
 <script src="{{asset('js/libs.js')}}"></script>
+
 
 @yield('scripts')
 @yield('footer')

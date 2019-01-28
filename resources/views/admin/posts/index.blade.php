@@ -3,7 +3,7 @@
 @section('content')
 
 @if(Session::has('deleted_post')) 
-    <p class="bg-danger alert alert-success" style="position:absolute; top:20px;">{{ session('deleted_post') }}</p>
+    <div class="bg-danger alert alert-success" style="position:absolute; top:20px;">{{ session('deleted_post') }}</div>
 @endif
 
 <h1>Posts Page</h1>
@@ -34,11 +34,19 @@
                         <td style="vertical-align: middle;">{{ $post->category ? $post->category->name : 'None' }}</td>
                         <td style="vertical-align: middle;">{{ $post->created_at->diffForHumans() }}</td>
                         <td style="vertical-align: middle;">{{ $post->updated_at->diffForHumans() }}</td>
+                        <td style="vertical-align: middle;"><a href="{{ route('home.post', $post->slug) }}">View Post</a></td>
+                        <td style="vertical-align: middle;"><a href="{{ route('admin.comments.show', $post->id) }}">View Comments</a></td>
                     </tr>
                 @endforeach
             @endif
         </tbody>
     </table>
+
+    <div class="row">
+        <div class="col-sm-6 col-sm-offset-5">
+            {{$posts->render()}}
+        </div>
+    </div>
 
     <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 

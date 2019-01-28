@@ -3,7 +3,7 @@
 @section('content')
 
     @if(Session::has('deleted_user')) 
-        <p class="bg-danger" style="position:absolute; top:20px;">{{ session('deleted_user') }}</p>
+        <p class="bg-danger alert alert-success" style="position:absolute; top:20px;">{{ session('deleted_user') }}</p>
     @endif
     <h1>Users</h1>
 
@@ -43,6 +43,9 @@
     <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 
     <script type="text/javascript">
+        //flash message
+        $('div.alert').delay(3000).slideUp(300);
+        //table row click event
         jQuery(document).ready(function($) {
             $(".clickable-row").click(function() {
                 window.location = $(this).data("url");

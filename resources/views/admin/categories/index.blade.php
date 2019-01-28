@@ -2,6 +2,10 @@
 
 @section('content')
 
+@if(Session::has('category_added')) 
+    <p class="bg-danger alert alert-success" style="position:absolute; top:20px;">{{ session('category_added') }}</p>
+@endif
+
 <h1>Categories Page</h1>
 <div class="col-sm-5">
     {!! Form::open(['method'=>'POST', 'action'=>'AdminCategoriesController@store']) !!}
@@ -45,6 +49,10 @@
     <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 
     <script type="text/javascript">
+        //flash message
+        $('div.alert').delay(3000).slideUp(300);
+
+        //click event on table row
         jQuery(document).ready(function($) {
             $(".clickable-row").click(function() {
                 window.location = $(this).data("url");

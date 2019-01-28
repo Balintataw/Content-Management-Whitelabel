@@ -1,4 +1,10 @@
 #admin-page {
   padding-top: 0; }
 
+.comment-reply {
+  display: none; }
+
+.comment-reply-inner {
+  display: none; }
+
 /*# sourceMappingURL=app.css.map */
