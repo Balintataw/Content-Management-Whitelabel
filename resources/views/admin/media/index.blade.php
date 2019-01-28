@@ -5,17 +5,23 @@
 @if(Session::has('deleted_photo')) 
     <div class="bg-danger alert alert-success" style="position:absolute; top:60px; right:20px;">{{ session('deleted_photo') }}</div>
 @endif
+@if(Session::has('deletion_error')) 
+    <div class="bg-danger alert alert-danger" style="position:absolute; top:60px; right:20px;">{{ session('deletion_error') }}</div>
+@endif
 
 <h1>Media Page</h1>
 
-<form action="/delete/media" method="post" class="form-inline">
+<form action="delete/media" method="post" class="form-inline">
+    {{csrf_field()}}
+    {{method_field('delete')}}
     <div class="form-group">
-        <select name="checkboxArray" id="" class="form-control">
-            <option value="delete">Delete</option>
+        <!-- made a select in case some other action was to be performed instead of delete -->
+        <select name="checkboxArray" id="" class="form-control" style="display:none;">
+            <option value="">Delete</option>
         </select>
     </div>
-    <div class="form-group">
-        <input type="submit" name="delete_all" class="btn btn-primary">
+    <div class="form-group" style="height:40px;">
+        <input type="submit" id="delete_all_btn" value="Delete Selected" name="delete_all" class="btn btn-primary" style="display:block;">
     </div>
 
     <table class="table table-striped table-hover">    
@@ -26,7 +32,7 @@
                 <th>Image</th>
                 <th>Name</th>
                 <th>Created At</th>
-                <th></th>
+                <!-- <th>Action</th> -->
             </tr>
         </thead>
         <tbody>
@@ -45,11 +51,13 @@
                         <td style="vertical-align: middle;"><img height="50px" width="50px" src="{{ $photo->image_url }}" alt="image"></td>
                         <td style="vertical-align: middle;">{{ $photo->image_url }}</td>
                         <td style="vertical-align: middle;">{{ $photo->created_at ? $photo->created_at->diffForHumans() : 'None' }}</td>
-                        <td style="vertical-align: middle;">
-                        {!! Form::open(['method'=>'DELETE', 'action'=>['AdminMediasController@destroy', $photo->id]]) !!}
-                            {!! Form::submit('Delete', ['class'=>'btn btn-danger']) !!}
-                        {!! Form::close() !!}  
-                        </td>
+                        <!-- redundant delete button -->
+                        <!-- <td style="vertical-align: middle;">
+                            <div class="form-group">
+                                <input type="hidden" name="photoid" value="{{ $photo->id }}">
+                                <input type="submit" name="delete_single" value="Delete" class="btn btn-danger">
+                            </div>
+                        </td> -->
                     </tr>
                 @endforeach
             @endif
@@ -67,10 +75,12 @@
 
         $('#options').click(function() {
             if(this.checked) {
+                // $('#delete_all_btn').css('display', 'block');
                 $('.check-boxes').each(function() {
                     this.checked = true;
                 })
             } else {
+                // $('#delete_all_btn').css('display', 'none');
                 $('.check-boxes').each(function() {
                     this.checked = false;
                 })

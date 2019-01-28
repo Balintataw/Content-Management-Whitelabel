@@ -17,6 +17,7 @@ class AdminMediasController extends Controller
      */
     public function index()
     {
+        // $photos = Photo::paginate(5);
         $photos = Photo::all();
         return view('admin.media.index', compact('photos'));
     }
@@ -94,15 +95,20 @@ class AdminMediasController extends Controller
         $photo = Photo::findOrFail($id);
         unlink(public_path() . $photo->image_url);
         $photo->delete();
-        Session::flash('deleted_photo', 'Photo Deleted');
-        return redirect('admin/media');
     }
 
     public function deleteMulti(Request $request) {
-        // return 'it works';
-        $photos = Photo::findOrFail($request->checkboxArray);
-        foreach($photos as $photo) {
-            $photo->delete();
+        // if(isset($request->delete_single)) {
+        //     $this->destroy($request->photoid);
+        // } else 
+        if(isset($request->delete_all) && !empty($request->checkboxArray)) {
+            $photos = Photo::findOrFail($request->checkboxArray);
+            foreach($photos as $photo) {
+                $photo->delete();
+            }
+        } else {
+            Session::flash('deletion_error', 'No images selected');
+            return redirect('admin/media');
         }
         Session::flash('deleted_photo', 'Photos Deleted');
         return redirect('admin/media');
