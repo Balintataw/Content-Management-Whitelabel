@@ -2,14 +2,17 @@
 
 @section('content')
 
+    @include('includes.tinyeditor')
+
     <h1>Edit Post</h1>
 
     {!! Form::model($post, ['method'=>'PATCH', 'action'=>['AdminPostsController@update', $post->id], 'files'=>true]) !!}
         <div>
             <div class="form-group">
-                <img src="{{ $post->photo->image_url }}" id="post-img-tag" width="150px" height="150px" style="border-radius:10px; border:1px solid grey; margin-bottom:10px;" />
+                <img class="img-responsive" src="{{ $post->photo ? $post->photo->image_url : $post->photo->photoPlaceholder() }}"id="post-img-tag" width="150px" height="150px" alt="post heading image">
+                <!-- <img src="{{ $post->photo->image_url }}" id="post-img-tag" width="150px" height="150px" style="border-radius:10px; border:1px solid grey; margin-bottom:10px;" /> -->
                 <div class="form-group" style="width:25%;">
-                    {!! Form::label('photo_id', 'Attach Photo:') !!}
+                    {!! Form::label('photo_id', 'Post Header Image:') !!}
                     {!! Form::file('photo_id', ['class'=>'form-control', 'id'=>'post-img']) !!}
                 </div>
             </div>

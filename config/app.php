@@ -150,6 +150,8 @@ return [
         Collective\Html\HtmlServiceProvider::class,
         Cviebrock\EloquentSluggable\ServiceProvider::class,
         Illuminate\Notifications\NotificationServiceProvider::class,
+        UniSharp\LaravelFilemanager\LaravelFilemanagerServiceProvider::class,
+        Intervention\Image\ImageServiceProvider::class,
 
         /*
          * Application Service Providers...
@@ -208,7 +210,7 @@ return [
         'Html' => Collective\Html\HtmlFacade::class,
         'Uuid' => Webpatser\Uuid\Uuid::class,
         'Notifiable' => Illuminate\Support\Facades\Notification::class,
-
+        'Image' => Intervention\Image\Facades\Image::class,
     ],
 
 ];

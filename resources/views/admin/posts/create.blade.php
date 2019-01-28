@@ -1,6 +1,7 @@
 @extends('layouts.admin') 
 
 @section('content')
+    @include('includes.tinyeditor')
 
     <h1>Create Post</h1>
 
@@ -9,7 +10,7 @@
             <div class="form-group">
                 <img src="/images/post_default.jpg" id="post-img-tag" width="150px" height="150px" style="border-radius:10px; border:1px solid grey; margin-bottom:10px;" />
                 <div class="form-group" style="width:25%;">
-                    {!! Form::label('photo_id', 'Attach Photo:') !!}
+                    {!! Form::label('photo_id', 'Header Photo:') !!}
                     {!! Form::file('photo_id', ['class'=>'form-control', 'id'=>'post-img']) !!}
                 </div>
             </div>

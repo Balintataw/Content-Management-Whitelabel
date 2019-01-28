@@ -14,7 +14,7 @@
                 <th>Photo</th>
                 <th>User</th>
                 <th>Title</th>
-                <th>Content</th>
+                <!-- <th>Content</th> -->
                 <th>Category</th>
                 <th>Created Date</th>
                 <th>Last Updated</th>
@@ -30,11 +30,11 @@
                         </td>
                         <td style="vertical-align: middle;">{{ $post->user->name }}</td>
                         <td style="vertical-align: middle;">{{ $post->title }}</td>
-                        <td style="vertical-align: middle;">{{ str_limit($post->content, 25) }}</td>
+                        <!-- <td style="vertical-align: middle;">{{ str_limit($post->content, 25) }}</td> -->
                         <td style="vertical-align: middle;">{{ $post->category ? $post->category->name : 'None' }}</td>
                         <td style="vertical-align: middle;">{{ $post->created_at->diffForHumans() }}</td>
                         <td style="vertical-align: middle;">{{ $post->updated_at->diffForHumans() }}</td>
-                        <td style="vertical-align: middle;"><a href="{{ route('home.post', $post->slug) }}">View Post1</a></td>
+                        <td style="vertical-align: middle;"><a href="{{ route('home.post', $post->slug) }}">View Post</a></td>
                         <!-- <td style="vertical-align: middle;"><a href="{{ route('home.post', $post->id) }}">View Post</a></td> -->
                         <td style="vertical-align: middle;"><a href="{{ route('admin.comments.show', $post->id) }}">View Comments</a></td>
                     </tr>

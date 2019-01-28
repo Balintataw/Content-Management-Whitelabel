@@ -28,13 +28,13 @@
     <hr>
 
     <!-- Preview Image -->
-    <img class="img-responsive" src="{{ $post->photo ? $post->photo->image_url : '' }}" alt="">
+    <img class="img-responsive" src="{{ $post->photo ? $post->photo->image_url : $post->photo->photoPlaceholder() }}" alt="">
 
     <hr>
 
     <!-- Post Content -->
-    <p class="lead">{{ str_limit($post->content, 50) }}</p>
-    <p>{{ $post->content }}</p>
+    <!-- <p class="lead">{{ str_limit($post->content, 50) }}</p> -->
+    <p>{!! $post->content !!}</p>
     <hr>
 
     <!-- Blog Comments -->
