@@ -97,4 +97,14 @@ class AdminMediasController extends Controller
         Session::flash('deleted_photo', 'Photo Deleted');
         return redirect('admin/media');
     }
+
+    public function deleteMulti(Request $request) {
+        // return 'it works';
+        $photos = Photo::findOrFail($request->checkboxArray);
+        foreach($photos as $photo) {
+            $photo->delete();
+        }
+        Session::flash('deleted_photo', 'Photos Deleted');
+        return redirect('admin/media');
+    }
 }

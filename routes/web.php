@@ -44,6 +44,9 @@ Route::group(['middleware'=>'admin'], function() {
         'store'=>'admin.categories.store',
         'edit'=>'admin.categories.edit',
     ]]);
+
+    Route::delete('delete/media', 'AdminMediasController@deleteMulti');
+
     Route::resource('admin/media', 'AdminMediasController',['names'=>[
         'index'=>'admin.media.index',
         'create'=>'admin.media.create',
