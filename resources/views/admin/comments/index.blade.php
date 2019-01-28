@@ -28,7 +28,7 @@
             <tbody>
                 @foreach($comments as $comment)
                 <!-- change route data -->
-                    <tr class="clickable-row" style="cursor:pointer;" data-url="{{ route('home.post', $comment->post->id) }}"> 
+                    <tr class="clickable-row" style="cursor:pointer;" data-url="{{ route('home.post', $comment->post->slug) }}"> 
                         <td style="vertical-align: middle;">{{ $comment->id }}</td>
                         <td style="vertical-align: middle;">
                             <img src="{{ $comment->user->photo ? $comment->user->photo->image_url : 'None' }}" height="40px" width="40" alt="author avatar"/>

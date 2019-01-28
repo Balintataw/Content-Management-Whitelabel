@@ -64,8 +64,8 @@
             <!-- Comment -->
         <div class="media" style="position:relative;">
             <a class="pull-left" href="#">
-                <!-- <img height="40" class="media-object" src="{{Auth::user()->gravatar}}" alt=""> -->
-                <img height="40" class="media-object" src="{{$comment->user->photo->image_url}}" alt="commentors avatar">
+                <img height="40" class="media-object" src="{{$comment->user->photo ? $comment->user->photo->image_url : Auth::user()->gravatar}}" alt="commenters avatar">
+                <!-- <img height="40" class="media-object" src="{{$comment->user->photo->image_url}}" alt="commentors avatar"> -->
             </a>
             <div class="media-body">
                 <div class="media-body">
