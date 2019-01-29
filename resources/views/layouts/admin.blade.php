@@ -53,7 +53,7 @@
 
             <!-- /.dropdown -->
             <li class="dropdown">
-                <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                <a class="dropdown-toggle" data-toggle="dropdown" role="button" href="#">
                     <span style="margin-right:10px;">{{ Auth::user()->name }}</span><i class="fa fa-user fa-fw"></i> <i class="fa fa-caret-down"></i>
                 </a>
                 <ul class="dropdown-menu dropdown-user">
@@ -116,7 +116,7 @@
                     </li>
 
                     <li>
-                        <a href="#"><i class="fa fa-wrench fa-fw"></i>Users<span class="fa arrow"></span></a>
+                        <a href="#"><i class="fa fa-user fa-fw"></i> Users<span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level">
                             <li>
                                 <a href="{{ route('admin.users.index') }}">All Users</a>
@@ -150,7 +150,7 @@
                     </li>
 
                     <li>
-                        <a href="{{ route('admin.categories.index') }}"><i class="fa fa-wrench fa-fw"></i>Categories</a>
+                        <a href="{{ route('admin.categories.index') }}"><i class="fa fa-wrench fa-fw"></i> Categories</a>
                         <!-- <ul class="nav nav-second-level">
                             <li>
                                 <a href="{{ route('admin.categories.index') }}">All Categories</a>
@@ -166,7 +166,7 @@
                     </li>
 
                     <li>
-                        <a href="#"><i class="fa fa-wrench fa-fw"></i>Media<span class="fa arrow"></span></a>
+                        <a href="#"><i class="fa fa-fw fa-file-image-o" aria-hidden="true"></i></i> Media<span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level">
                             <li>
                                 <a href="{{ route('admin.media.index') }}">All Media</a>
@@ -214,7 +214,7 @@
                                 <a href="typography.html">Typography</a>
                             </li>
                             <li>
-                                <a href="icons.html"> Icons</a>
+                                <a href="icons.html">Icons</a>
                             </li>
                             <li>
                                 <a href="grid.html">Grid</a>
@@ -265,8 +265,6 @@
                         <!-- /.nav-second-level -->
                     </li>
                 </ul>
-
-
             </div>
             <!-- /.sidebar-collapse -->
         </div>
