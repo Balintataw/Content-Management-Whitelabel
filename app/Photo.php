@@ -11,7 +11,8 @@ class Photo extends Model
         'size',
     ];
 
-    protected $uploads = '/images/';
+    // this needs to be uncommented to use user uploaded images, commented to use seed data
+    // protected $uploads = '/images/';
 
     public function getImageUrlAttribute($photo) {
         // prepends /images/ when image_url property is rendered

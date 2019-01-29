@@ -29,7 +29,6 @@ class UsersEditRequest extends Request
         return [
             'name' => 'bail|required|max:255',
             'email' => 'required|email|max:255|unique:users,email,' . $user->id,
-            // 'email' => 'required|email|max:255|unique:users,email',
             'role_id' => 'required',
         ];
     }

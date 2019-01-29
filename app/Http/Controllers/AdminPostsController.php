@@ -129,12 +129,10 @@ class AdminPostsController extends Controller
         }
         $post->delete();
         Session::flash('deleted_post', 'Post Deleted');
-        // return redirect('/admin/posts');
     }
 
     public function post($slug) {
         $post = Post::findBySlugOrFail($slug);
-        // $post = Post::findOrFail($slug);
         $comments = $post->comments()->whereIsActive(1)->orderBy('created_at', 'DESC')->get();
         return view('post', compact('post', 'comments'));
     }
