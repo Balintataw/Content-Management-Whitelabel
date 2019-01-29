@@ -55,25 +55,22 @@
             {!! Form::submit('Create User', ['class'=>'btn btn-primary']) !!}
         </div>
     {!! Form::close() !!}
+@stop
 
-    <!-- @include('includes.form_errors') -->
-
-    <!-- TODO jquery should be available globally? -->
-<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
-
-<script type="text/javascript">
-    function readURL(input) {
-        if (input.files && input.files[0]) {
-            var reader = new FileReader();
-            
-            reader.onload = function (e) {
-                $('#profile-img-tag').attr('src', e.target.result);
+@section('scripts')
+    <script type="text/javascript">
+        function readURL(input) {
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+                
+                reader.onload = function (e) {
+                    $('#profile-img-tag').attr('src', e.target.result);
+                }
+                reader.readAsDataURL(input.files[0]);
             }
-            reader.readAsDataURL(input.files[0]);
         }
-    }
-    $("#profile-img").change(function(){
-        readURL(this);
-    });
-</script>
+        $("#profile-img").change(function(){
+            readURL(this);
+        });
+    </script>
 @stop

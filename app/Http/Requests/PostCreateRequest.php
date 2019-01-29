@@ -24,7 +24,6 @@ class PostCreateRequest extends Request
     public function rules()
     {
         return [
-            // 'photo_id' => 'bail|required',
             'title' => 'bail|required|max:100',
             'content' => 'bail|required',
             'category_id' => 'bail|required',
@@ -34,7 +33,6 @@ class PostCreateRequest extends Request
     public function messages()
     {
         return [
-            // 'photo_id.required'  => 'Post Image is required',
             'title.required' => 'Post Title is required',
             'category_id.required'  => 'Post Category is required',
             'content.required'  => 'Post Description is required',

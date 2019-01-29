@@ -64,6 +64,11 @@
         </tbody>
     </table>
 </form>
+<div class="row">
+    <div class="col-sm-6 col-sm-offset-5">
+        {{$photos->links()}}
+    </div>
+</div>
 
 @stop
 

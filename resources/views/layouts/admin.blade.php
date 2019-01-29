@@ -12,9 +12,9 @@
     <title>Admin</title>
 
     <!-- Bootstrap Core CSS -->
+    <link href="{{asset('css/libs.css')}}" rel="stylesheet">
     <link href="{{asset('css/app.css')}}" rel="stylesheet">
 
-    <link href="{{asset('css/libs.css')}}" rel="stylesheet">
 
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -340,7 +340,6 @@
 <!-- /#wrapper -->
 
 <!-- jQuery -->
-<script src="js/jquery.js"></script>
 
 <script src="{{ asset('js/libs.js') }}"></script>
 <script src="{{ asset('js/jquery.flot.js') }}"></script>

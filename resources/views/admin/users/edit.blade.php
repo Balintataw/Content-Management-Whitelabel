@@ -61,14 +61,9 @@
             </div>
         </div>
     {!! Form::close() !!}
+@stop
 
-
-
-    <!-- @include('includes.form_errors') -->
-
-    <!-- TODO jquery should be available globally? -->
-    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
-
+@section('scripts')
     <script type="text/javascript">
         // gets and sets image as user selectes it
         function readURL(input) {

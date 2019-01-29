@@ -39,9 +39,9 @@
             @endif
         </tbody>
     </table>
+@stop
 
-    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
-
+@section('scripts')
     <script type="text/javascript">
         //flash message
         $('div.alert').delay(3000).slideUp(300);
