@@ -184,7 +184,7 @@
                         <a href="#"><i class="fa fa-bar-chart-o fa-fw"></i> Charts<span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level">
                             <li>
-                                <a href="flot.html">Flot Charts</a>
+                                <a href="{{ route('admin.charts.index') }}">Flot Charts</a>
                             </li>
                             <li>
                                 <a href="morris.html">Morris.js Charts</a>
@@ -342,7 +342,8 @@
 <!-- jQuery -->
 <script src="js/jquery.js"></script>
 
-<script src="{{asset('js/libs.js')}}"></script>
+<script src="{{ asset('js/libs.js') }}"></script>
+<script src="{{ asset('js/jquery.flot.js') }}"></script>
 
 
 @yield('scripts')

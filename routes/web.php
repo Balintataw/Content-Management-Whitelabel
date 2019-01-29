@@ -65,6 +65,12 @@ Route::group(['middleware'=>'admin'], function() {
         'create'=>'admin.comment.show',
         'edit'=>'admin.comment.edit',
     ]]);
+    Route::resource('admin/charts', 'AdminChartsController',['names'=>[
+        'index'=>'admin.charts.index',
+        'show'=>'admin.charts.show',
+        'create'=>'admin.charts.show',
+        'edit'=>'admin.charts.edit',
+    ]]);
     Route::any('admin/posts/{id}', 'AdminPostsController@destroy');
     Route::any('admin/users/{id}', 'AdminUsersController@destroy');
 });

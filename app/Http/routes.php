@@ -32,6 +32,7 @@ Route::group(['middleware'=>'admin'], function() {
     Route::resource('admin/media', 'AdminMediasController');
     Route::resource('admin/comments', 'PostCommentsController');
     Route::resource('admin/comment/replies', 'CommentRepliesController');
+    Route::resource('admin/charts', 'AdminChartsController');
     Route::any('admin/posts/{id}', 'AdminPostsController@destroy');
     Route::any('admin/users/{id}', 'AdminUsersController@destroy');
 });

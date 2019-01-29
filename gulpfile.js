@@ -28,5 +28,6 @@ elixir(function(mix) {
     'libs/sb-admin-2.js',
     'libs/scripts.js',
     'libs/dropzone.js',
+    'libs/jquery.flot.js',
     ], './public/js/libs.js')
 });
