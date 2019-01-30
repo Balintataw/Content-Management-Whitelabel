@@ -26,7 +26,7 @@
                     <tr class="clickable-row" style="cursor:pointer;" data-url="{{ route('admin.users.edit', $user->id) }}">
                         <td style="vertical-align: middle;">{{ $user->id }}</td>
                         <td style="vertical-align: middle;">
-                            <img src="{{ $user->photo ? $user->photo->image_url : 'none' }}" height="30px" width="30px" style="border-radius:50%;" />
+                            <img src="/images/{{ $user->photo ? $user->photo->image_url : 'avatar_default.svg' }}" height="30px" width="30px" style="border-radius:50%;" />
                         </td>
                         <td style="vertical-align: middle;">{{ $user->name }}</td>
                         <td style="vertical-align: middle;">{{ $user->email }}</td>

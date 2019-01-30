@@ -55,7 +55,7 @@ class AdminUsersController extends Controller
             $name = $file->getClientOriginalName();
             $size = $file->getClientSize();
             $file->move('images', $name); // creates avatars folder in public directory
-            $photo = Photo::create( ['image_url'=>$name, 'size'=>$size] );
+            $photo = Photo::create( ['image_url'=>'/images/' . $name, 'size'=>$size] );
 
             $userInput['photo_id'] = $photo['id'];
         }
@@ -128,13 +128,12 @@ class AdminUsersController extends Controller
     public function destroy($id)
     {
         $user = User::findOrFail($id);
+
         // cheese way to not delete my placeholder avatar image
-        if($user->photo->image_url != '/images/avatar_default.svg') {
-            unlink(public_path() . $user->photo->image_url);
+        if($user->photo && $user->photo->image_url != '/images/avatar_default.svg') {
+            // unlink(public_path() . $user->photo->image_url);
         }
         $user->delete();
         Session::flash('deleted_user', 'User Deleted');
-
-        // return redirect('/admin/users');
     }
 }

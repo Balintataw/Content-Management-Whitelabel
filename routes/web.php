@@ -23,14 +23,14 @@ Route::get('/home', 'HomeController@index');
 
 Route::group(['middleware'=>'admin'], function() {
     //active admin/superuser only routes
-    Route::get('/admin', function() {
-        return view('admin.index');
-    });
+    Route::get('/admin', 'AdminController@index');
+
     Route::resource('admin/users', 'AdminUsersController', ['names'=>[
         'index'=>'admin.users.index',
         'create'=>'admin.users.create',
         'store'=>'admin.users.store',
         'edit'=>'admin.users.edit',
+        'destroy'=>'admin.users.destroy'
     ]]);
     Route::resource('admin/posts', 'AdminPostsController', ['names'=>[
         'index'=>'admin.posts.index',
@@ -71,8 +71,8 @@ Route::group(['middleware'=>'admin'], function() {
         'create'=>'admin.charts.show',
         'edit'=>'admin.charts.edit',
     ]]);
+    // handle deletion of posts and users via ajax
     Route::any('admin/posts/{id}', 'AdminPostsController@destroy');
-    Route::any('admin/users/{id}', 'AdminUsersController@destroy');
 });
 
 Route::group(['middleware'=>'auth'], function() {

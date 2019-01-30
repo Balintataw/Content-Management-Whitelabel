@@ -9,7 +9,7 @@
     {!! Form::model($post, ['method'=>'PATCH', 'action'=>['AdminPostsController@update', $post->id], 'files'=>true]) !!}
         <div>
             <div class="form-group">
-                <img class="img-responsive" src="{{ $post->photo ? $post->photo->image_url : $post->photo->photoPlaceholder() }}"id="post-img-tag" width="150px" height="150px" alt="post heading image">
+                <img class="img-responsive" src="{{ $post->photo ? $post->photo->image_url : $post->photoPlaceholder() }}"id="post-img-tag" width="150px" height="150px" alt="post heading image">
                 <!-- <img src="{{ $post->photo->image_url }}" id="post-img-tag" width="150px" height="150px" style="border-radius:10px; border:1px solid grey; margin-bottom:10px;" /> -->
                 <div class="form-group" style="width:25%;">
                     {!! Form::label('photo_id', 'Post Header Image:') !!}
@@ -45,10 +45,6 @@
         <div class="form-group">
             {!! Form::submit('Edit Post', ['class'=>'btn btn-primary']) !!}
             {!! Form::button('Delete Post', ['class'=>'btn btn-danger', 'id'=>'delete-post', 'data-postid'=>$post->id]) !!}
-
-            <!-- {!! Form::open(['method'=>'DELETE', 'action'=>['AdminPostsController@destroy', $post->id], 'class'=>'pull-right']) !!}
-                {!! Form::submit('Delete Post', ['class'=>'btn btn-danger']) !!}
-            {!! Form::close() !!} -->
         </div>
     {!! Form::close() !!}
 

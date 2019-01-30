@@ -14,10 +14,11 @@
                 <th>Photo</th>
                 <th>User</th>
                 <th>Title</th>
-                <!-- <th>Content</th> -->
                 <th>Category</th>
                 <th>Created Date</th>
                 <th>Last Updated</th>
+                <th></th>
+                <th></th>
             </tr>
         </thead>
         <tbody>
@@ -30,12 +31,10 @@
                         </td>
                         <td style="vertical-align: middle;">{{ $post->user->name }}</td>
                         <td style="vertical-align: middle;">{{ $post->title }}</td>
-                        <!-- <td style="vertical-align: middle;">{{ str_limit($post->content, 25) }}</td> -->
                         <td style="vertical-align: middle;">{{ $post->category ? $post->category->name : 'None' }}</td>
                         <td style="vertical-align: middle;">{{ $post->created_at->diffForHumans() }}</td>
                         <td style="vertical-align: middle;">{{ $post->updated_at->diffForHumans() }}</td>
                         <td style="vertical-align: middle;"><a href="{{ route('home.post', $post->slug) }}">View Post</a></td>
-                        <!-- <td style="vertical-align: middle;"><a href="{{ route('home.post', $post->id) }}">View Post</a></td> -->
                         <td style="vertical-align: middle;"><a href="{{ route('admin.comments.show', $post->id) }}">View Comments</a></td>
                     </tr>
                 @endforeach
@@ -48,9 +47,9 @@
             {{$posts->render()}}
         </div>
     </div>
+@stop
 
-    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
-
+@section('scripts')
     <script type="text/javascript">
         $('div.alert').delay(3000).slideUp(300);
 
