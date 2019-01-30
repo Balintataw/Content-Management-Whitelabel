@@ -6,6 +6,7 @@ use App\Http\Requests;
 use Illuminate\Http\Request;
 use App\Post;
 use App\Comment;
+use App\Category;
 
 class HomeController extends Controller
 {
@@ -26,8 +27,9 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $posts = Post::all();
-        $comments = Comment::all();
-        return view('home/home', compact('posts', 'comments'));
+        $posts = Post::paginate(2);
+        $categories = Category::all();
+        // $comments = Comment::all();
+        return view('home/home', compact('posts', 'categories'));
     }
 }
