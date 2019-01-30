@@ -1,216 +1,173 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<head>
-
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="">
-    <meta name="author" content="">
-
-    <title>Blog Post - Template</title>
-
-    <!-- Bootstrap Core CSS -->
-    <link href="css/bootstrap.min.css" rel="stylesheet">
-
-    <!-- Custom CSS -->
-    <link href="css/blog-post.css" rel="stylesheet">
-
-    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
-        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-    <![endif]-->
-
-</head>
+@include('home.head_metadata')
 
 <body>
 
     <!-- Navigation -->
-    <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-        <div class="container">
-            <!-- Brand and toggle get grouped for better mobile display -->
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a class="navbar-brand" href="#">JD Whitelabel</a>
-            </div>
-            <!-- Collect the nav links, forms, and other content for toggling -->
-            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                <ul class="nav navbar-nav">
-                    <li>
-                        <a href="#">About</a>
-                    </li>
-                    <li>
-                        <a href="#">Services</a>
-                    </li>
-                    <li>
-                        <a href="#">Contact</a>
-                    </li>
-                </ul>
-            </div>
-            <!-- /.navbar-collapse -->
-        </div>
-        <!-- /.container -->
-    </nav>
+    @include('home.home_nav')
 
     <!-- Page Content -->
     <div class="container">
-
         <div class="row">
 
             <!-- Blog Post Content Column -->
             <div class="col-lg-8">
+            @foreach($posts as $post)
+                <!-- Blog Post -->
+                  <!-- Flash message -->
+                @if(Session::has('comment_added')) 
+                    <div class="bg-danger alert alert-success" style="position:absolute; top:60px; right:20px;">{{ session('comment_added') }}</div>
+                @endif
+                @if(Session::has('reply_added')) 
+                    <div class="bg-danger alert alert-success" style="position:absolute; top:60px; right:20px;">{{ session('reply_added') }}</div>
+                @endif
 
                 <!-- Blog Post -->
 
                 <!-- Title -->
-                <h1>Blog Post Title</h1>
+                <h1>{{$post->title}}</h1>
 
                 <!-- Author -->
                 <p class="lead">
-                    by <a href="#">Start Bootstrap</a>
+                    by <a href="#">{{$post->user->name}}</a>
                 </p>
 
                 <hr>
 
                 <!-- Date/Time -->
-                <p><span class="glyphicon glyphicon-time"></span> Posted on August 24, 2013 at 9:00 PM</p>
+                <p><span class="glyphicon glyphicon-time"></span> Posted on {{$post->created_at->format('F j, Y \a\t h:i A')}}</p>
 
                 <hr>
 
                 <!-- Preview Image -->
-                <img class="img-responsive" src="http://placehold.it/900x300" alt="">
+                <img class="img-responsive" style="min-height:200px" src="{{ $post->photo ? $post->photo->image_url : $post->photoPlaceholder() }}" alt="">
 
                 <hr>
 
                 <!-- Post Content -->
-                <p class="lead">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ducimus, vero, obcaecati, aut, error quam sapiente nemo saepe quibusdam sit excepturi nam quia corporis eligendi eos magni recusandae laborum minus inventore?</p>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ut, tenetur natus doloremque laborum quos iste ipsum rerum obcaecati impedit odit illo dolorum ab tempora nihil dicta earum fugiat. Temporibus, voluptatibus.</p>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eos, doloribus, dolorem iusto blanditiis unde eius illum consequuntur neque dicta incidunt ullam ea hic porro optio ratione repellat perspiciatis. Enim, iure!</p>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Error, nostrum, aliquid, animi, ut quas placeat totam sunt tempora commodi nihil ullam alias modi dicta saepe minima ab quo voluptatem obcaecati?</p>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Harum, dolor quis. Sunt, ut, explicabo, aliquam tenetur ratione tempore quidem voluptates cupiditate voluptas illo saepe quaerat numquam recusandae? Qui, necessitatibus, est!</p>
-
+                <!-- <p class="lead">{{ str_limit($post->content, 50) }}</p> -->
+                <p>{!! $post->content !!}</p>
                 <hr>
 
                 <!-- Blog Comments -->
-
+                @if(Auth::check())
                 <!-- Comments Form -->
                 <div class="well">
                     <h4>Leave a Comment:</h4>
-                    <form role="form">
+                    {!! Form::open(['method'=>'POST', 'action'=>'PostCommentsController@store' ])!!} 
+                        <input type="hidden" name="post_id" value="{{$post->id}}">
                         <div class="form-group">
-                            <textarea class="form-control" rows="3"></textarea>
+                            {!! Form::textarea('content', null, ['class'=>'form-control', 'rows'=>5]) !!}
                         </div>
-                        <button type="submit" class="btn btn-primary">Submit</button>
-                    </form>
+                        <div class="form-group">
+                            {!! Form::submit('Create Comment', ['class'=>'btn btn-primary']) !!}
+                        </div>
+                    {!! Form::close() !!}
                 </div>
-
                 <hr>
+                @endif
 
                 <!-- Posted Comments -->
 
-                <!-- Comment -->
-                <div class="media">
-                    <a class="pull-left" href="#">
-                        <img class="media-object" src="http://placehold.it/64x64" alt="">
-                    </a>
-                    <div class="media-body">
-                        <h4 class="media-heading">Start Bootstrap
-                            <small>August 25, 2014 at 9:30 PM</small>
-                        </h4>
-                        Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin commodo. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.
-                    </div>
-                </div>
+                @if(count($comments) > 0)
 
-                <!-- Comment -->
-                <div class="media">
-                    <a class="pull-left" href="#">
-                        <img class="media-object" src="http://placehold.it/64x64" alt="">
-                    </a>
-                    <div class="media-body">
-                        <h4 class="media-heading">Start Bootstrap
-                            <small>August 25, 2014 at 9:30 PM</small>
-                        </h4>
-                        Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin commodo. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.
-                        <!-- Nested Comment -->
-                        <div class="media">
-                            <a class="pull-left" href="#">
-                                <img class="media-object" src="http://placehold.it/64x64" alt="">
-                            </a>
+                    @foreach($comments as $comment)
+                    
+                        <!-- Comment -->
+                    <div class="media" style="position:relative;">
+                        <a class="pull-left" href="#">
+                            <img height="40" class="media-object" src="{{$comment->user->photo ? $comment->user->photo->image_url : Auth::user()->gravatar}}" alt="commenters avatar">
+                            <!-- <img height="40" class="media-object" src="{{$comment->user->photo->image_url}}" alt="commentors avatar"> -->
+                        </a>
+                        <div class="media-body">
                             <div class="media-body">
-                                <h4 class="media-heading">Nested Start Bootstrap
-                                    <small>August 25, 2014 at 9:30 PM</small>
+                                <h4 class="media-heading">{{$comment->author}}
+                                    <small>{{$comment->created_at->diffForHumans()}}</small>
                                 </h4>
-                                Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin commodo. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.
+                                <p>{{$comment->content}}</p>
                             </div>
-                        </div>
-                        <!-- End Nested Comment -->
-                    </div>
-                </div>
+                            <div class="comment-reply-container" style="display:flex;">
+                                <i class="fa fa-comment toggle-reply" style="position:absolute; top:0px; right:50px; cursor:pointer; font-size:20px;"></i>
 
+                                <div class="comment-reply">
+
+                                    {!! Form::open(['method'=>'POST', 'action'=> 'CommentRepliesController@createReply']) !!}
+                                            <div class="form-group">
+
+                                                <input type="hidden" name="comment_id" value="{{$comment->id}}">
+
+                                                {!! Form::label('content', 'Reply:') !!}
+                                                {!! Form::textarea('content', null, ['class'=>'form-control','rows'=>2])!!}
+                                            </div>
+
+                                            <div class="form-group">
+                                                {!! Form::submit('submit', ['class'=>'btn btn-primary']) !!}
+                                            </div>
+                                    {!! Form::close() !!}
+
+                                </div>
+                            </div>
+
+                            @if(count($comment->replies) > 0)
+
+                                @foreach($comment->replies as $reply)
+
+                                    @if($reply->is_active == 1)
+
+                                    <!-- Nested Comment -->
+                                    <div id="nested-comment" class=" media" style="position:relative;">
+                                        <a class="pull-left" href="#">
+                                            <img height="40" class="media-object" src="{{$reply->user->photo->image_url}}" alt="">
+                                        </a>
+                                        <div class="media-body">
+                                            <h4 class="media-heading">{{$reply->author}}
+                                                <small>{{$reply->created_at->diffForHumans()}}</small>
+                                            </h4>
+                                            <p>{{$reply->content}}</p>
+                                        </div>
+
+                                        <div class="comment-reply-container">
+
+                                            <!-- would require some recursion and db restructuring to continue nesting replies -->
+                                            <!-- <i class="fa fa-comment toggle-reply" style="position:absolute; top:0px; right:50px; cursor:pointer; font-size:20px;"></i> -->
+
+                                            <div class="comment-reply">
+
+                                                {!! Form::open(['method'=>'POST', 'action'=> 'CommentRepliesController@createReply']) !!}
+                                                        <div class="form-group">
+
+                                                            <input type="hidden" name="comment_id" value="{{$comment->id}}">
+
+                                                            {!! Form::label('content', 'Reply:') !!}
+                                                            {!! Form::textarea('content', null, ['class'=>'form-control','rows'=>2])!!}
+                                                        </div>
+
+                                                        <div class="form-group">
+                                                            {!! Form::submit('submit', ['class'=>'btn btn-primary']) !!}
+                                                        </div>
+                                                {!! Form::close() !!}
+
+                                            </div>
+                                        </div>
+                                    <!-- End Nested Comment -->
+                                    </div>
+                                    @endif
+                                @endforeach
+                            @endif
+                        </div>
+                    </div>
+                    @endforeach
+                @endif
+
+            @endforeach
             </div>
 
             <!-- Blog Sidebar Widgets Column -->
             <div class="col-md-4">
 
-                <!-- Blog Search Well -->
-                <div class="well">
-                    <h4>Blog Search</h4>
-                    <div class="input-group">
-                        <input type="text" class="form-control">
-                        <span class="input-group-btn">
-                            <button class="btn btn-default" type="button">
-                                <span class="glyphicon glyphicon-search"></span>
-                        </button>
-                        </span>
-                    </div>
-                    <!-- /.input-group -->
-                </div>
-
-                <!-- Blog Categories Well -->
-                <div class="well">
-                    <h4>Blog Categories</h4>
-                    <div class="row">
-                        <div class="col-lg-6">
-                            <ul class="list-unstyled">
-                                <li><a href="#">Category Name</a>
-                                </li>
-                                <li><a href="#">Category Name</a>
-                                </li>
-                                <li><a href="#">Category Name</a>
-                                </li>
-                                <li><a href="#">Category Name</a>
-                                </li>
-                            </ul>
-                        </div>
-                        <div class="col-lg-6">
-                            <ul class="list-unstyled">
-                                <li><a href="#">Category Name</a>
-                                </li>
-                                <li><a href="#">Category Name</a>
-                                </li>
-                                <li><a href="#">Category Name</a>
-                                </li>
-                                <li><a href="#">Category Name</a>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                    <!-- /.row -->
-                </div>
-
-                <!-- Side Widget Well -->
-                <div class="well">
-                    <h4>Side Widget Well</h4>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Inventore, perspiciatis adipisci accusamus laudantium odit aliquam repellat tempore quos aspernatur vero.</p>
-                </div>
+            @include('home.home_sidenav')
 
             </div>
 
@@ -223,10 +180,9 @@
         <footer>
             <div class="row">
                 <div class="col-lg-12">
-                    <p>Copyright &copy; Your Website 2014</p>
+                    <p>Copyright &copy; Jossendal Development 2019</p>
                 </div>
             </div>
-            <!-- /.row -->
         </footer>
 
     </div>
